@@ -2,6 +2,7 @@
 
 int main(){
 
-    readMatrix();  
+    readMatrix();
+    printf("oi");
     return 0;
 }
