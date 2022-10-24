@@ -30,13 +30,11 @@ struct Movimento* readR(int *size){
     
     for(int i = 0; i < *size; i++){
         fscanf(file, "%d %s", &movimento[i].num, &movimento[i].direction);
-        printf("%d ", movimento[i].num);
-        printf("%s \n", movimento[i].direction);
     }
 
-    // for(int i = 0; i < size; i++){
-    //     printf("%d ", movimento[i].num);
-    //     printf("%s\n", movimento[i].direction);
-    // }
+    for(int i = 0; i < *size; i++){
+        printf("%d ", movimento[i].num);
+        printf("%s\n", movimento[i].direction);
+    }
     return movimento;
 }
