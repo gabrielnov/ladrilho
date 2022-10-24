@@ -29,11 +29,11 @@ int** readMatrix(int *size){
         printf("\n");           
     }  
 
-    return matrix;
     for (int i = 0; i < *size; i++){
         free(matrix[i]);
     }
 
     free(matrix);
     
+    return matrix;
 }
