@@ -1,1 +1,2 @@
-void readMatrix();
+int** readMatrix();
+struct Movimento* readR();

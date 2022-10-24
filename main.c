@@ -1,8 +1,12 @@
+#include <stdio.h>
 #include "read.h"
 
 int main(){
 
-    readMatrix();
-    printf("oi");
+    int ** matrix;
+    struct Movimento *movimento;
+    matrix = readMatrix();
+    movimento = readR();
+    // printf("%d", resposta);
     return 0;
 }
