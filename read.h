@@ -1,2 +1,2 @@
-int** readMatrix();
-struct Movimento* readR();
+int** readMatrix(int *size);
+struct Movimento* readR(int *size);
