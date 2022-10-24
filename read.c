@@ -30,10 +30,10 @@ int** readMatrix(int *size){
     }  
 
     return matrix;
-    // for (int i = 0; i < size; i++){
-    //     free(matrix[i]);
-    // }
+    for (int i = 0; i < *size; i++){
+        free(matrix[i]);
+    }
 
-    // free(matrix);
+    free(matrix);
     
 }
