@@ -23,17 +23,11 @@ int** readMatrix(int *size){
         }
     }
 
-    for (int i = 0; i < *size; i++){
-        for (int j = 0; j < *size; j++)
-            printf("%d ", matrix[i][j]);
-        printf("\n");           
-    }  
-
-    for (int i = 0; i < *size; i++){
-        free(matrix[i]);
-    }
-
-    free(matrix);
+    // for (int i = 0; i < *size; i++){
+    //     for (int j = 0; j < *size; j++)
+    //         printf("%d ", matrix[i][j]);
+    //     printf("\n");           
+    // }  
     
     return matrix;
 }
