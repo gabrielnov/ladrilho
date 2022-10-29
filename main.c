@@ -55,13 +55,14 @@ int validaPos(int i, int j, char *move, int row, int column, int **matrix){
     } return 1;
 }
 
-int validaZero(int i, int j, int **matrix, int row, int column){
-    if(matrix[i+1][j] != 0 || matrix[i-1][j] != 0 || matrix[i][j+1] != 0 || matrix[i][j-1] != 0 ){
-        return 0;
-    } else {
-        return 1;
-    }
-}
+// int validaZero(int i, int j, int **matrix, int row, int column){
+//     if(matrix[i+1][j] != 0 || matrix[i-1][j] != 0 || matrix[i][j+1] != 0 || matrix[i][j-1] != 0 ){
+//         printf("oi");
+//         return 0;
+//     } else {
+//         return 1;
+//     }
+// }
 
 void moveNum(int *posi, int*posj, int **matrix, char *move){
     int aux;
@@ -90,14 +91,13 @@ int main(){
     row = size;
     column = size;
     movimento = readR(&size);
-
+    
     //mover os ladrilhos de acordo com o moveset
     for(int x = 0; x < size; x++){
         flag = 0;
         encontraPos(&i, &j, matrix, movimento[x].num, row, column);
-        printf("i e j: %d %d\n", i, j);
-        printf("movimento: %d ", movimento[x].num);
-        printf("%s \n", movimento[x].direction);
+        printf("posicao i e j: %d %d\n", i, j);
+        printf("movimento: %d %s \n", movimento[x].num, movimento[x].direction);
         if(strcmp(movimento[x].direction, "d") == 0){ //coluna - 1
             flag = validaPos(i, j, movimento[x].direction, row, column, matrix);
         } else if (strcmp(movimento[x].direction, "e") == 0){ //coluna + 1
@@ -107,7 +107,8 @@ int main(){
         } else if (strcmp(movimento[x].direction, "c") == 0){//linha + 1
             flag = validaPos(i, j, movimento[x].direction, row, column, matrix);
         }
-        flag = validaZero(i, j, matrix, row, column);
+
+        // flag = validaZero(i, j, matrix, row, column);
         if(flag == 1){
             moveNum(&i, &j, matrix, movimento[x].direction);
         } else {
