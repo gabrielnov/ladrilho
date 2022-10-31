@@ -67,7 +67,7 @@ int validaPos(int i, int j, char *move, int row, int column, int **matrix){
 void moveNum(int *posi, int*posj, int **matrix, char *move){
     int aux;
     aux = matrix[*posi][*posj];
-    printf("o valor que quremos mudar eh %d", aux);
+
     if(strcmp(move, "d") == 0){ //coluna + 1
         matrix[*posi][*posj] = matrix[*posi][*posj+1];
         matrix[*posi][*posj+1] = aux;
@@ -83,6 +83,7 @@ void moveNum(int *posi, int*posj, int **matrix, char *move){
     }
 }
 
+
 int main(){
 
     int **matrix, i , j, size, row, column, flag = 0;
@@ -91,22 +92,25 @@ int main(){
     row = size;
     column = size;
     movimento = readR(&size);
-    
+
     //mover os ladrilhos de acordo com o moveset
     for(int x = 0; x < size; x++){
         flag = 0;
         encontraPos(&i, &j, matrix, movimento[x].num, row, column);
         printf("posicao i e j: %d %d\n", i, j);
         printf("movimento: %d %s \n", movimento[x].num, movimento[x].direction);
-        if(strcmp(movimento[x].direction, "d") == 0){ //coluna - 1
-            flag = validaPos(i, j, movimento[x].direction, row, column, matrix);
-        } else if (strcmp(movimento[x].direction, "e") == 0){ //coluna + 1
-            flag = validaPos(i, j, movimento[x].direction, row, column, matrix);
-        } else if (strcmp(movimento[x].direction, "b") == 0){ //linha - 1
-            flag = validaPos(i, j, movimento[x].direction, row, column, matrix);
-        } else if (strcmp(movimento[x].direction, "c") == 0){//linha + 1
-            flag = validaPos(i, j, movimento[x].direction, row, column, matrix);
-        }
+
+        flag = validaPos(i, j, movimento[x].direction, row, column, matrix);
+        // if(strcmp(movimento[x].direction, "d") == 0){ //coluna - 1
+        //     flag = validaPos(i, j, movimento[x].direction, row, column, matrix);
+        // } else if (strcmp(movimento[x].direction, "e") == 0){ //coluna + 1
+        //     flag = validaPos(i, j, movimento[x].direction, row, column, matrix);
+        // } else if (strcmp(movimento[x].direction, "b") == 0){ //linha - 1
+        //     flag = validaPos(i, j, movimento[x].direction, row, column, matrix);
+        // } else if (strcmp(movimento[x].direction, "c") == 0){//linha + 1
+        //     flag = validaPos(i, j, movimento[x].direction, row, column, matrix);
+        // }
+
 
         // flag = validaZero(i, j, matrix, row, column);
         if(flag == 1){
