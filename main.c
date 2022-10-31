@@ -67,6 +67,7 @@ int validaPos(int i, int j, char *move, int row, int column, int **matrix){
 void moveNum(int *posi, int*posj, int **matrix, char *move){
     int aux;
     aux = matrix[*posi][*posj];
+
     if(strcmp(move, "d") == 0){ //coluna + 1
         matrix[*posi][*posj] = matrix[*posi][*posj+1];
         matrix[*posi][*posj+1] = aux;
@@ -81,6 +82,7 @@ void moveNum(int *posi, int*posj, int **matrix, char *move){
         matrix[*posi-1][*posj] = aux;
     }
 }
+
 
 int main(){
 
@@ -97,6 +99,7 @@ int main(){
         encontraPos(&i, &j, matrix, movimento[x].num, row, column);
         printf("posicao i e j: %d %d\n", i, j);
         printf("movimento: %d %s \n", movimento[x].num, movimento[x].direction);
+
         flag = validaPos(i, j, movimento[x].direction, row, column, matrix);
         // if(strcmp(movimento[x].direction, "d") == 0){ //coluna - 1
         //     flag = validaPos(i, j, movimento[x].direction, row, column, matrix);
@@ -107,6 +110,7 @@ int main(){
         // } else if (strcmp(movimento[x].direction, "c") == 0){//linha + 1
         //     flag = validaPos(i, j, movimento[x].direction, row, column, matrix);
         // }
+
 
         // flag = validaZero(i, j, matrix, row, column);
         if(flag == 1){
