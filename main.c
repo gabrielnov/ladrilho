@@ -3,25 +3,20 @@
 #include <stdlib.h>
 #include "read.h"
 
-struct Movimento{
-    int num;
-    char direction[5];
-};
-
-void printMatrix(int **matrix, int row, int column){
+void printMatrix(int **matrix, int size){
     printf("######################\n");
-    for (int a = 0; a < row; a++){
-        for (int b = 0; b < column; b++)
+    for (int a = 0; a < size; a++){
+        for (int b = 0; b < size; b++)
             printf("%d ", matrix[a][b]);
         printf("\n");           
     }
     printf("######################\n");
 }
 
-void encontraPos(int *posi, int *posj, int **matrix, int movimento, int row, int column){
+void encontraPos(int *posi, int *posj, int **matrix, int movimento, int size){
     int flag = 0;
-    for(int i = 0; i < row; i++){
-        for(int j = 0; j < column; j++){
+    for(int i = 0; i < size; i++){
+        for(int j = 0; j < size; j++){
             if(movimento == matrix[i][j]){
                 *posi = i;
                 *posj = j;
@@ -35,9 +30,9 @@ void encontraPos(int *posi, int *posj, int **matrix, int movimento, int row, int
     }
 }
 
-int validaPos(int i, int j, char *move, int row, int column, int **matrix){
+int validaPos(int i, int j, char *move, int size, int **matrix){
     if(strcmp(move, "d") == 0){ //coluna - 1
-        if(j >= column-1 || matrix[i][j+1] != 0) {
+        if(j >= size-1 || matrix[i][j+1] != 0) {
             return 0;
         }
     } else if (strcmp(move, "e") == 0){ //coluna + 1
@@ -45,7 +40,7 @@ int validaPos(int i, int j, char *move, int row, int column, int **matrix){
             return 0;
         }
     } else if (strcmp(move, "b") == 0){ //linha - 1
-        if(i >= row-1 || matrix[i+1][j] != 0){
+        if(i >= size-1 || matrix[i+1][j] != 0){
             return 0;
         }
     } else if (strcmp(move, "c") == 0){//linha + 1
@@ -54,15 +49,6 @@ int validaPos(int i, int j, char *move, int row, int column, int **matrix){
         }
     } return 1;
 }
-
-// int validaZero(int i, int j, int **matrix, int row, int column){
-//     if(matrix[i+1][j] != 0 || matrix[i-1][j] != 0 || matrix[i][j+1] != 0 || matrix[i][j-1] != 0 ){
-//         printf("oi");
-//         return 0;
-//     } else {
-//         return 1;
-//     }
-// }
 
 void moveNum(int *posi, int*posj, int **matrix, char *move){
     int aux;
@@ -86,43 +72,38 @@ void moveNum(int *posi, int*posj, int **matrix, char *move){
 
 int main(){
 
-    int **matrix, i , j, size, row, column, flag = 0;
+    int **matrix, i , j, size, flag = 0, continua;
     struct Movimento *movimento;
     matrix = readMatrix(&size);
-    row = size;
-    column = size;
+
     movimento = readR(&size);
 
     //mover os ladrilhos de acordo com o moveset
     for(int x = 0; x < size; x++){
-        flag = 0;
-        encontraPos(&i, &j, matrix, movimento[x].num, row, column);
-        printf("posicao i e j: %d %d\n", i, j);
-        printf("movimento: %d %s \n", movimento[x].num, movimento[x].direction);
+        printf("digite 1 para continuar e 0 para terminar: ");
+        scanf("%d", &continua);
+        if (continua == 1){
+            flag = 0;
+            encontraPos(&i, &j, matrix, movimento[x].num, size);
+            printf("posicao i e j: %d %d\n", i, j);
+            printf("movimento: %d %s \n", movimento[x].num, movimento[x].direction);
 
-        flag = validaPos(i, j, movimento[x].direction, row, column, matrix);
-        // if(strcmp(movimento[x].direction, "d") == 0){ //coluna - 1
-        //     flag = validaPos(i, j, movimento[x].direction, row, column, matrix);
-        // } else if (strcmp(movimento[x].direction, "e") == 0){ //coluna + 1
-        //     flag = validaPos(i, j, movimento[x].direction, row, column, matrix);
-        // } else if (strcmp(movimento[x].direction, "b") == 0){ //linha - 1
-        //     flag = validaPos(i, j, movimento[x].direction, row, column, matrix);
-        // } else if (strcmp(movimento[x].direction, "c") == 0){//linha + 1
-        //     flag = validaPos(i, j, movimento[x].direction, row, column, matrix);
-        // }
+            flag = validaPos(i, j, movimento[x].direction, size, matrix);
 
-
-        // flag = validaZero(i, j, matrix, row, column);
-        if(flag == 1){
-            moveNum(&i, &j, matrix, movimento[x].direction);
+            if(flag == 1){
+                moveNum(&i, &j, matrix, movimento[x].direction);
+            } else {
+                printf("movimento invalido\n");
+                break;
+            }
+            printMatrix(matrix, size);
         } else {
-            printf("movimento invalido\n");
             break;
         }
-        printMatrix(matrix, row, column);
+
     }
 
-    for (int i = 0; i < column; i++){
+    for (int i = 0; i < size; i++){
         free(matrix[i]);
     }
 
