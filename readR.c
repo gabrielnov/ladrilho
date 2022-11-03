@@ -3,11 +3,6 @@
 #include <string.h>
 #include "read.h"
 
-struct Movimento{
-    int num;
-    char direction[5];
-};
-
 struct Movimento* readR(int *size){
     int line = 1, num;
     char ch[5];
