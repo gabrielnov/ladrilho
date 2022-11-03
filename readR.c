@@ -20,7 +20,6 @@ struct Movimento* readR(int *size){
         line++;
     }
 
-    printf("tamanho da lista: %d\n", *size);
     struct Movimento *movimento = (struct Movimento*) malloc(*size * sizeof(struct Movimento));
     
     for(int i = 0; i < *size; i++){
