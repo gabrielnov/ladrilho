@@ -5,11 +5,15 @@
 
 void printMatrix(int **matrix, int size){
     printf("######################\n");
-    for (int a = 0; a < size; a++){
-        for (int b = 0; b < size; b++)
-            printf("%d ", matrix[a][b]);
-        printf("\n");           
+    for(int a = 0; a < size; a++){
+        printf("----------------------\n");
+        for(int b = 0; b < size; b++){
+            printf("|");
+            printf(" %d ", matrix[a][b]);
+        }
+        printf("|\n");           
     }
+    printf("----------------------\n");
     printf("######################\n");
 }
 
@@ -72,10 +76,12 @@ void moveNum(int *posi, int*posj, int **matrix, char *move){
 
 int main(){
 
-    int **matrix, i , j, size, flag = 0, continua;
+    int **matrix, i , j, size, flag = 0, continua, tamanho;
     struct Movimento *movimento;
     matrix = readMatrix(&size);
-
+    printf("--- matriz inicial ---\n");
+    printMatrix(matrix, size);
+    tamanho = size;
     movimento = readR(&size);
 
     //mover os ladrilhos de acordo com o moveset
@@ -84,11 +90,12 @@ int main(){
         scanf("%d", &continua);
         if (continua == 1){
             flag = 0;
-            encontraPos(&i, &j, matrix, movimento[x].num, size);
-            printf("posicao i e j: %d %d\n", i, j);
-            printf("movimento: %d %s \n", movimento[x].num, movimento[x].direction);
+            encontraPos(&i, &j, matrix, movimento[x].num, tamanho);
+            printf("----------------------\n");
+            printf("posicao i e j do ZERO: %d %d\n", i, j);
+            printf("--- movimento: %d %s ---\n", movimento[x].num, movimento[x].direction);
 
-            flag = validaPos(i, j, movimento[x].direction, size, matrix);
+            flag = validaPos(i, j, movimento[x].direction, tamanho, matrix);
 
             if(flag == 1){
                 moveNum(&i, &j, matrix, movimento[x].direction);
@@ -96,7 +103,7 @@ int main(){
                 printf("movimento invalido\n");
                 break;
             }
-            printMatrix(matrix, size);
+            printMatrix(matrix, tamanho);
         } else {
             break;
         }
