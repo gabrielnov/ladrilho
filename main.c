@@ -1,7 +1,24 @@
+//ALEX SE YOON KOO 32129319
+//GABRIEL DE CARVALHO NOVAES 31897282
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include "read.h"
+
+bool ordenado(int **matrix, int size){
+    int current = matrix[0][0];
+    for(int i = 1; i < size; i++){
+        for(int j = 1; j < size; j++){
+            if(current > matrix[i][j]){
+                return false;
+            } else {
+                current = matrix[i][j];
+            }
+        }
+    }
+    return true;
+}
 
 void printMatrix(int **matrix, int size){
     printf("######################\n");
@@ -103,6 +120,12 @@ int main(){
                 printf("movimento invalido\n");
                 break;
             }
+            if(ordenado(matrix, size) == true){
+                printf("---matriz ordenada!!---\n");
+            } else {
+                printf("---matrix nao ordenada!!---\n");
+            }
+
             printMatrix(matrix, tamanho);
         } else {
             break;
