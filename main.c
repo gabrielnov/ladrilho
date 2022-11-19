@@ -1,3 +1,5 @@
+//ALEX SE YOON KOO 32129319
+//GABRIEL DE CARVALHO NOVAES 31897282
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
