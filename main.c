@@ -95,6 +95,10 @@ int main(int argc, char** argv){
 
     int **matrix, i , j, size, flag = 0, continua, tamanho;
     struct Movimento *movimento;
+    if (argv[1] == NULL){
+        printf("colocar o caminho do arquivo input.txt");
+        return 0;
+    }
     matrix = readMatrix(&size, argv[1]);
     printf("--- matriz inicial ---\n");
     printMatrix(matrix, size);
@@ -103,7 +107,7 @@ int main(int argc, char** argv){
 
     //mover os ladrilhos de acordo com o moveset
     for(int x = 0; x < size; x++){
-        printf("digite 1 para continuar e 0 para terminar: ");
+        printf("\ndigite 1 para continuar ou qualquer outro numero para terminar: ");
         scanf("%d", &continua);
         if (continua == 1){
             flag = 0;
