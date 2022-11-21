@@ -111,7 +111,7 @@ int main(int argc, char** argv){
     printMatrix(matrix, size);
     tamanho = size; // tamanho e size sao diferetens: tamanho eh para matrix e o size para a lista de movimento
     //lemos o arquivo para criar uma lista de movimentos
-    movimento = readR(&size);
+    movimento = readR(&size, argv[1]);
 
     //mover os ladrilhos de acordo com o moveset
     for(int x = 0; x < size; x++){

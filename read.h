@@ -6,4 +6,4 @@ struct Movimento{
 };
 
 int** readMatrix(int *size, char caminho[]);
-struct Movimento* readR(int *size);
+struct Movimento* readR(int *size, char caminho[]);
