@@ -91,11 +91,11 @@ void moveNum(int *posi, int*posj, int **matrix, char *move){
 }
 
 
-int main(){
+int main(int argc, char** argv){
 
     int **matrix, i , j, size, flag = 0, continua, tamanho;
     struct Movimento *movimento;
-    matrix = readMatrix(&size);
+    matrix = readMatrix(&size, argv[1]);
     printf("--- matriz inicial ---\n");
     printMatrix(matrix, size);
     tamanho = size;

@@ -4,15 +4,13 @@
 #include <stdlib.h>
 #include "read.h"
 
-int** readMatrix(int *size){
+int** readMatrix(int *size, char caminho[]){
     int i, j, value;
-
     FILE* file;
-
-    file = fopen("assets/input.txt", "r");
     
+    file = fopen(caminho, "r");
     fscanf(file, "%d", size);
-    
+
     int **matrix = (int**) malloc(*size * sizeof(int*));
  
     for (int i = 0; i < *size; i++)
