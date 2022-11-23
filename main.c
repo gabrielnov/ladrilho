@@ -6,6 +6,7 @@
 #include <stdbool.h>
 #include "read.h"
 
+//funcao que ve se a matrix está ordenada ou nao
 bool ordenado(int **matrix, int size){
     int current = matrix[0][0];
     for(int i = 1; i < size; i++){
@@ -20,6 +21,7 @@ bool ordenado(int **matrix, int size){
     return true;
 }
 
+//display da matrix
 void printMatrix(int **matrix, int size){
     printf("######################\n");
     for(int a = 0; a < size; a++){
@@ -34,6 +36,7 @@ void printMatrix(int **matrix, int size){
     printf("######################\n");
 }
 
+//encontra posicao i e j do Zero dentro da matrix
 void encontraPos(int *posi, int *posj, int **matrix, int movimento, int size){
     int flag = 0;
     for(int i = 0; i < size; i++){
@@ -51,6 +54,7 @@ void encontraPos(int *posi, int *posj, int **matrix, int movimento, int size){
     }
 }
 
+//valida posicao do movimento vendo se ele está movendo em direção ao zero ou para fora da matrix
 int validaPos(int i, int j, char *move, int size, int **matrix){
     if(strcmp(move, "d") == 0){ //coluna - 1
         if(j >= size-1 || matrix[i][j+1] != 0) {
@@ -71,6 +75,7 @@ int validaPos(int i, int j, char *move, int size, int **matrix){
     } return 1;
 }
 
+//move o zero com o movimento 
 void moveNum(int *posi, int*posj, int **matrix, char *move){
     int aux;
     aux = matrix[*posi][*posj];
@@ -91,35 +96,47 @@ void moveNum(int *posi, int*posj, int **matrix, char *move){
 }
 
 
-int main(){
+int main(int argc, char** argv){
 
     int **matrix, i , j, size, flag = 0, continua, tamanho;
     struct Movimento *movimento;
-    matrix = readMatrix(&size);
+    //se o usuario nao inserir nenhum caminho na hora de executar o programa
+    if (argv[1] == NULL){
+        printf("colocar o caminho do arquivo input.txt");
+        return 0;
+    }
+    //construimos a matriz passando os seguintes parametros
+    matrix = readMatrix(&size, argv[1]);
     printf("--- matriz inicial ---\n");
     printMatrix(matrix, size);
-    tamanho = size;
-    movimento = readR(&size);
+    tamanho = size; // tamanho e size sao diferetens: tamanho eh para matrix e o size para a lista de movimento
+    //lemos o arquivo para criar uma lista de movimentos
+    movimento = readR(&size, argv[1]);
 
     //mover os ladrilhos de acordo com o moveset
     for(int x = 0; x < size; x++){
-        printf("digite 1 para continuar e 0 para terminar: ");
+        printf("\ndigite 1 para continuar ou qualquer outro numero para terminar: ");
         scanf("%d", &continua);
         if (continua == 1){
             flag = 0;
+            //encontra posicao do zero 
             encontraPos(&i, &j, matrix, movimento[x].num, tamanho);
             printf("----------------------\n");
             printf("posicao i e j do ZERO: %d %d\n", i, j);
             printf("--- movimento: %d %s ---\n", movimento[x].num, movimento[x].direction);
-
+            
+            //valida se o movimento eh possivel ou nao 
             flag = validaPos(i, j, movimento[x].direction, tamanho, matrix);
 
+            //olha se eh um movimento valido ou nao
             if(flag == 1){
                 moveNum(&i, &j, matrix, movimento[x].direction);
             } else {
                 printf("movimento invalido\n");
                 break;
             }
+
+            //faz o display se a matriz está ordenada ou não 
             if(ordenado(matrix, size) == true){
                 printf("---matriz ordenada!!---\n");
             } else {
@@ -133,6 +150,14 @@ int main(){
 
     }
 
+    //faz o display se a matriz está ordenada ou não 
+    if(ordenado(matrix, size) == true){
+        printf("---matriz ordenada!!---\n");
+    } else {
+        printf("---matrix nao ordenada!!---\n");
+    }
+
+    //liberamos a memoria usada
     for (int i = 0; i < size; i++){
         free(matrix[i]);
     }
